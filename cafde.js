@@ -10,6 +10,7 @@ var groundY = 400; // y-coordinate of the floor
 function preload() {
     /* load images and music */
     images.start = loadImage('images/start.png');
+    images.end = loadImage('images/end.png');
     images.cafde = loadImage('images/cafde.png');
     images.cup = loadImage('images/cafdeMug.PNG');
     images.hearttrue = loadImage('images/hearttrue.png');
@@ -72,6 +73,13 @@ function draw() {
         for (let i = 0; i < 10; i++) {
             image(images['heart' + (i < cup.health)], 10 + 25 * i, 10);
         }
+
+        /* End the game if you're dead */
+        if (cup.health <= 0) {
+            mode = 'end';
+        }
+    } else if (mode === 'end') { // game over
+        image(images.end, 0, 0);
     }
 }
 
