@@ -52,8 +52,19 @@ function draw() {
         fill(100, 64, 18);
         rect(0, 320, 640, 80);
 
-        /* draw the mug */
+        /* draw and move the mug */
         image(images.cup, cup.x, cup.y, cup.width, cup.height);
+        if (cup.left && cup.x > 0) {
+            cup.x -= 5;
+        }
+        if (cup.right && cup.x <= width - cup.width) {
+            cup.x += 5;
+        }
+        if (cup.jump) {
+            cup.y > 5 ? cup.y -= 5 : cup.y = 0;
+        } else if (cup.y + cup.height < groundY) {
+            cup.y += 5;
+        }
     }
 }
 
@@ -66,6 +77,21 @@ function reset() {
     cafde.y = 0;
     cup.x = width/2;
     cup.y = groundY - cup.height;
+    cup.jump = false;
+    cup.left = false;
+    cup.right = false;
+}
+
+function keyPressed() {
+    if (key === ' ') {
+        cup.jump = true;
+    }
+    if (keyCode === LEFT_ARROW) {
+        cup.left = true;
+    }
+    if (keyCode === RIGHT_ARROW) {
+        cup.right = true;
+    }
 }
 
 function keyReleased() {
@@ -79,6 +105,16 @@ function keyReleased() {
             mode = 'play';
             music.game.loop();
         }
+    }
+
+    if (key === ' ') {
+        cup.jump = false;
+    }
+    if (keyCode === LEFT_ARROW) {
+        cup.left = false;
+    }
+    if (keyCode === RIGHT_ARROW) {
+        cup.right = false;
     }
 }
 
