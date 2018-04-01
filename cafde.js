@@ -7,6 +7,7 @@ var cafde = {width: 200, height: 200}; // object containing properties on cafde 
 var cup = {width: 120, height: 120}; // object containing properties on cafde's mug
 var cubes = []; // array of objects containing properties on sugar cubes
 var groundY = 400; // y-coordinate of the floor
+var timer = new Timer(); // game timer
 
 function preload() {
     /* load images and music */
@@ -25,6 +26,9 @@ function setup() {
     createCanvas(640, 480);
     // this song is loud AF, so courteously lower the volume (lol)
     music.game.setVolume(0.3);
+    stroke(0);
+    textSize(20);
+    textFont('monospace');
     reset();
 }
 
@@ -100,21 +104,35 @@ function draw() {
 
         /* end the game if you're dead */
         if (cup.health <= 0) {
+            timer.pause();
             mode = 'end';
         }
     } else if (mode === 'end') { // game over
         image(images.end, 0, 0);
     }
+
+    /* update timer */
+    strokeWeight(3);
+    if (timer.stopped) {
+        fill('#fff');
+    } else if (timer.paused) {
+        fill('#f77');
+    } else {
+        fill('#7f7');
+    }
+    text(timer.readTime(), 20, 450);
+    strokeWeight(1);
 }
 
 function reset() {
     /* set all initial conditions */
     mode = 'start';
+    timer.reset();
     music.title.loop();
     bgColor = randColor();
     cafde.x = 440;
     cafde.y = 0;
-    cup.x = width/2;
+    cup.x = width / 2;
     cup.y = groundY - cup.height;
     cup.jump = false;
     cup.left = false;
@@ -152,6 +170,7 @@ function keyReleased() {
         } else { // Start the game
             music.title.stop();
             mode = 'play';
+            timer.start();
             music.game.loop();
         }
     }
