@@ -12,6 +12,8 @@ function preload() {
     images.start = loadImage('images/start.png');
     images.cafde = loadImage('images/cafde.png');
     images.cup = loadImage('images/cafdeMug.PNG');
+    images.hearttrue = loadImage('images/hearttrue.png');
+    images.heartfalse = loadImage('images/heartfalse.png');
     music.title = loadSound('music/ponponpon.mp3');
     music.game = loadSound('music/coffee.mp3');
 }
@@ -65,6 +67,11 @@ function draw() {
         } else if (cup.y + cup.height < groundY) {
             cup.y += 5;
         }
+
+        /* display health */
+        for (let i = 0; i < 10; i++) {
+            image(images['heart' + (i < cup.health)], 10 + 25 * i, 10);
+        }
     }
 }
 
@@ -80,6 +87,7 @@ function reset() {
     cup.jump = false;
     cup.left = false;
     cup.right = false;
+    cup.health = 10;
 }
 
 function keyPressed() {
