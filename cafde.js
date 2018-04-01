@@ -5,6 +5,7 @@ var music = {}; // object containing all game music
 var bgColor; // background color during gameplay
 var cafde = {width: 200, height: 200}; // object containing properties on cafde the hedgehog
 var cup = {width: 120, height: 120}; // object containing properties on cafde's mug
+var cubes = []; // array of objects containing properties on sugar cubes
 var groundY = 400; // y-coordinate of the floor
 
 function preload() {
@@ -15,6 +16,7 @@ function preload() {
     images.cup = loadImage('images/cafdeMug.PNG');
     images.hearttrue = loadImage('images/hearttrue.png');
     images.heartfalse = loadImage('images/heartfalse.png');
+    images.sugar = loadImage('images/sugar.png');
     music.title = loadSound('music/ponponpon.mp3');
     music.game = loadSound('music/coffee.mp3');
 }
@@ -74,7 +76,29 @@ function draw() {
             image(images['heart' + (i < cup.health)], 10 + 25 * i, 10);
         }
 
-        /* End the game if you're dead */
+        /* draw and move sugar cubes */
+        for (let i = 0; i < cubes.length; i++) {
+            let cube = cubes[i];
+            image(images.sugar, cube.x, cube.y);
+            cube.x += floor(random(6 * i + 6)) * cube.xDir;
+            cube.y += floor(random(6 * i + 6)) * cube.yDir;
+            if (cube.x > width - cube.width) {
+                cube.x = width - cube.width;
+                cube.xDir = -cube.xDir;
+            } else if (cube.x < 0) {
+                cube.x = 0;
+                cube.xDir = -cube.xDir;
+            }
+            if (cube.y > height - cube.width) {
+                cube.y = height - cube.width;
+                cube.yDir = -cube.yDir;
+            } else if (cube.y < 0) {
+                cube.y = 0;
+                cube.yDir = -cube.yDir;
+            }
+        }
+
+        /* end the game if you're dead */
         if (cup.health <= 0) {
             mode = 'end';
         }
@@ -96,6 +120,15 @@ function reset() {
     cup.left = false;
     cup.right = false;
     cup.health = 10;
+    for (let i = 0; i < 3; i++) {
+        cubes[i] = {
+            x: 0,
+            y: floor(random(height - 40)),
+            xDir: 1,
+            yDir: 1,
+            width: 40
+        };
+    }
 }
 
 function keyPressed() {
