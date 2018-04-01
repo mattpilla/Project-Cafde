@@ -3,10 +3,15 @@ var mode; // string to track game "mode" (title screen, gameplay, game over)
 var images = {}; // object containing all game images
 var music = {}; // object containing all game music
 var bgColor; // background color during gameplay
+var cafde = {width: 200, height: 200}; // object containing properties on cafde the hedgehog
+var cup = {width: 120, height: 120}; // object containing properties on cafde's mug
+var groundY = 400; // y-coordinate of the floor
 
 function preload() {
     /* load images and music */
     images.start = loadImage('images/start.png');
+    images.cafde = loadImage('images/cafde.png');
+    images.cup = loadImage('images/cafdeMug.PNG');
     music.title = loadSound('music/ponponpon.mp3');
     music.game = loadSound('music/coffee.mp3');
 }
@@ -27,13 +32,40 @@ function draw() {
         if (frameCount % 30 === 0) {
             bgColor = randColor();
         }
+
+        /* draw cafde and have him follow his mug */
+        image(images.cafde, cafde.x, cafde.y, cafde.width, cafde.height);
+        if (cup.x < cafde.x) {
+            cafde.x--;
+        } else if (cup.x + cup.width > cafde.x + cafde.width) {
+            cafde.x++;
+        }
+        if (cup.y < cafde.y) {
+            cafde.y--;
+        } else if (cup.y + cup.height > cafde.y + cafde.height) {
+            cafde.y++;
+        }
+
+        /* draw the table */
+        fill(137, 81, 14);
+        rect(0, groundY, 640, 80);
+        fill(100, 64, 18);
+        rect(0, 320, 640, 80);
+
+        /* draw the mug */
+        image(images.cup, cup.x, cup.y, cup.width, cup.height);
     }
 }
 
 function reset() {
+    /* set all initial conditions */
     mode = 'start';
     music.title.loop();
     bgColor = randColor();
+    cafde.x = 440;
+    cafde.y = 0;
+    cup.x = width/2;
+    cup.y = groundY - cup.height;
 }
 
 function keyReleased() {
