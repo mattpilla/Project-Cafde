@@ -62,7 +62,11 @@ function draw() {
         rect(0, 320, 640, 80);
 
         /* draw and move the mug */
+        if (cup.invincible) {
+            tint('#f77');
+        }
         image(images.cup, cup.x, cup.y, cup.width, cup.height);
+        noTint();
         if (cup.left && cup.x > 0) {
             cup.x -= 5;
         }
@@ -99,6 +103,15 @@ function draw() {
             } else if (cube.y < 0) {
                 cube.y = 0;
                 cube.yDir = -cube.yDir;
+            }
+
+            /* Check if sugar hits the mug */
+            if (cube.x > cup.x && cube.x < cup.x + cup.width && cube.y > cup.y && cube.y < cup.y + cup.height) {
+                if (!cup.invincible) {
+                    cup.invincible = true;
+                    setTimeout(() => cup.invincible = false, 2000);
+                    cup.health--;
+                }
             }
         }
 
@@ -138,6 +151,7 @@ function reset() {
     cup.left = false;
     cup.right = false;
     cup.health = 10;
+    cup.invincible = false;
     for (let i = 0; i < 3; i++) {
         cubes[i] = {
             x: 0,
