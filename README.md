@@ -15,7 +15,7 @@ Play as Cafde, the IRL loose cannon who loves coffee, but doesn't fuck with suga
 ## Run locally
 Not sure who the hell you are, but sure, you can do this.
 
-I didn't include the music in this repo for copyright reasons, but you'll need to put `ponponpon.mp3` and `coffee.mp3` in the music folder. Good luck.
+I didn't include the music in this repo for copyright reasons, but you'll need to put `coffee.ogg`, `failure.ogg`, `newrecord.ogg`, `ponponpon.ogg`, and `sayonara.ogg` in the music folder. So yea, don't bother.
 
 You need [node](https://nodejs.org/en/) to run this.\
 Run `npm install` in the root directory for the rest of the dependencies.\

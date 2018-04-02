@@ -2,6 +2,7 @@
 var mode; // string to track game "mode" (title screen, gameplay, game over)
 var images = {}; // object containing all game images
 var music = {}; // object containing all game music
+var sfx = {}; // object containing all game sound effects
 var bgColor; // background color during gameplay
 var cafde = {width: 200, height: 200}; // object containing properties on cafde the hedgehog
 var cup = {width: 120, height: 120}; // object containing properties on cafde's mug
@@ -18,17 +19,23 @@ function preload() {
     images.hearttrue = loadImage('images/hearttrue.png');
     images.heartfalse = loadImage('images/heartfalse.png');
     images.sugar = loadImage('images/sugar.png');
-    music.title = loadSound('music/ponponpon.mp3');
-    music.game = loadSound('music/coffee.mp3');
+    music.title = loadSound('music/ponponpon.ogg');
+    music.game = loadSound('music/coffee.ogg');
+    music.end = loadSound('music/sayonara.ogg');
+    sfx.failure = loadSound('music/failure.ogg');
+    sfx.newrecord = loadSound('music/newrecord.ogg');
 }
 
 function setup() {
     createCanvas(640, 480);
-    // this song is loud AF, so courteously lower the volume (lol)
-    music.game.setVolume(0.3);
     stroke(0);
     textSize(20);
     textFont('monospace');
+
+    /* these songs are loud AF, so courteously lower the volume (lol) */
+    music.game.setVolume(0.3);
+    music.end.setVolume(0.5);
+
     reset();
 }
 
@@ -119,6 +126,9 @@ function draw() {
         if (cup.health <= 0) {
             timer.pause();
             mode = 'end';
+            music.game.stop();
+            sfx.failure.play();
+            music.end.loop();
         }
     } else if (mode === 'end') { // game over
         image(images.end, 0, 0);
@@ -180,6 +190,7 @@ function keyReleased() {
     if (key === 'C') {
         if (mode !== "start") { // Reset the game
             music.game.stop();
+            music.end.stop();
             reset();
         } else { // Start the game
             music.title.stop();
