@@ -9,6 +9,7 @@ var cup = {width: 120, height: 120}; // object containing properties on cafde's 
 var cubes = []; // array of objects containing properties on sugar cubes
 var groundY = 400; // y-coordinate of the floor
 var timer = new Timer(); // game timer
+var pb; // personal best time
 
 function preload() {
     /* load images and music */
@@ -127,7 +128,16 @@ function draw() {
             timer.pause();
             mode = 'end';
             music.game.stop();
-            sfx.failure.play();
+
+            /* Check for PB */
+            let time = timer.getTime();
+            if (time > pb) {
+                sfx.newrecord.play();
+                localStorage.setItem('pb', time);
+            } else {
+                sfx.failure.play();
+            }
+
             music.end.loop();
         }
     } else if (mode === 'end') { // game over
@@ -136,21 +146,25 @@ function draw() {
 
     /* update timer */
     strokeWeight(3);
-    if (timer.stopped) {
+    if (mode === 'start') {
+        /* show PB */
         fill('#fff');
-    } else if (timer.paused) {
-        fill('#f77');
+        text('BEST TIME: ' + Timer.readTime(pb), 4, 476);
     } else {
-        fill('#7f7');
+        if (timer.paused) {
+            fill('#f77');
+        } else {
+            fill('#7f7');
+        }
+        text(Timer.readTime(timer.getTime()), 4, 476);
     }
-    text(timer.readTime(), 20, 450);
-    strokeWeight(1);
 }
 
 function reset() {
     /* set all initial conditions */
     mode = 'start';
     timer.reset();
+    pb = localStorage.getItem('pb') || 0;
     music.title.loop();
     bgColor = randColor();
     cafde.x = 440;
