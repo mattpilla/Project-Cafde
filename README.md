@@ -3,7 +3,7 @@ Re-creation of [this game](https://kaztalek.com/games/cafde) I made in college, 
 The original game was made in [Processing (v2)](https://processing.org/), and I'm rebuilding it in [p5.js](https://p5js.org/). The beauty of this being that p5.js is basically a re-creation of Processing for the web.
 
 ## Play
-Playable in the browser, I've hosted it here: https://kaztalek.com/cafde/\
+Playable in the browser, I've hosted it here: https://kaztalek.com/cafde/ \
 Do you use Internet Explorer? Fuck you, you'll need a different browser to play this.
 ### Premise
 Play as Cafde, the IRL loose cannon who loves coffee, but doesn't fuck with sugar cubes. Move his coffee mug around (telekinetically) to avoid the sugar cubes for as long as possible.
