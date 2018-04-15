@@ -1,6 +1,7 @@
 class Timer {
-    constructor() {
+    constructor(millis) {
         this.reset();
+        this.millis = millis;
     }
 
     reset() {
@@ -10,31 +11,33 @@ class Timer {
 
     start() {
         this.paused = false;
-        this.startTime = millis();
+        this.startTime = this.millis();
     }
 
     pause() {
         this.paused = true;
-        this.elapsed += millis() - this.startTime;
-        this.endTime = millis();
+        this.elapsed += this.millis() - this.startTime;
+        this.endTime = this.millis();
     }
 
     /* get current time in milliseconds */
     getTime() {
         let time = this.elapsed;
         if (!this.paused) {
-            time += millis() - this.startTime;
+            time += this.millis() - this.startTime;
         }
         return time;
     }
 
     /* return human readable time */
     static readTime(time) {
-        let hours = '' + floor(time / 3600000);
-        let m = floor(time / 60000) % 60;
+        let hours = '' + Math.floor(time / 3600000);
+        let m = Math.floor(time / 60000) % 60;
         let minutes = (m < 10 ? '0' : '') + m;
-        let s = floor(time / 1000) % 60;
+        let s = Math.floor(time / 1000) % 60;
         let seconds = (s < 10 ? '0' : '') + s;
         return `${hours}:${minutes}:${seconds}`;
     }
 }
+
+module.exports = Timer;

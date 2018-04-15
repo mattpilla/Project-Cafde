@@ -2,13 +2,23 @@
   "name": "cafde",
   "version": "1.0.0",
   "description": "Port of Cafde's Quest for Satisfaction",
-  "main": "cafde.js",
+  "repository": "github:mattpilla/Project-Cafde",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "brunch watch --server",
+    "build": "rm -rf public/ && brunch build --production"
   },
   "author": "keeta",
-  "license": "ISC",
   "dependencies": {
     "p5": "^0.6.0"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "^2.7.1",
+    "babel-brunch": "^6.1.1",
+    "babel-preset-latest": "^6.24.1",
+    "brunch": "^2.10.12",
+    "clean-css-brunch": "^2.10.0",
+    "copycat-brunch": "^1.1.0",
+    "digest-brunch": "^1.6.0",
+    "uglify-js-brunch": "^2.10.0"
   }
 }
