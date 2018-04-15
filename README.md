@@ -15,8 +15,9 @@ Play as Cafde, the IRL loose cannon who loves coffee, but doesn't fuck with suga
 ## Run locally
 Not sure who the hell you are, but sure, you can do this.
 
-I didn't include the music in this repo for copyright reasons, but you'll need to put `coffee.ogg`, `failure.ogg`, `newrecord.ogg`, `ponponpon.ogg`, and `sayonara.ogg` in the music folder. So yea, don't bother.
+I didn't include the music in this repo for copyright reasons, but you'll need to put `coffee.ogg`, `failure.ogg`, `newrecord.ogg`, `ponponpon.ogg`, and `sayonara.ogg` in the `app/assets/sound` folder. So yea, don't bother.
 
 You need [node](https://nodejs.org/en/) to run this.\
 Run `npm install` in the root directory for the rest of the dependencies.\
-Lastly, you need to run an http server, so I highly recommend [http-server](https://github.com/indexzero/http-server). If you choose that, just run `http-server` in the root directory, and go to http://localhost:8080.
+For developing, run `npm start` to run at http://localhost:3333, complete with hot reloading.\
+For production, run `npm build` to build to the `public` folder.
