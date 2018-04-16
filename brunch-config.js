@@ -14,7 +14,13 @@ exports.modules = {
 };
 
 exports.plugins = {
-    babel: {presets: ['latest']},
+    babel: {
+        presets: ['env'],
+        ignore: /^node_modules/
+    },
+    uglify: {
+        ignored: /^node_modules/
+    },
     copycat:{
         modules: ['node_modules/p5/lib/p5.min.js', 'node_modules/p5/lib/addons/p5.sound.min.js'],
         verbose : true,
